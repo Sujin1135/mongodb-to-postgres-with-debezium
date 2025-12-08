@@ -1,3 +1,39 @@
 spring:
   application:
     name: cdc-example
+  flyway:
+    locations: classpath:db/migration/postgres
+    url: jdbc:postgresql://localhost:5432/production_database
+    user: app_user
+    password: secretPassword
+  datasource:
+    url: jdbc:postgresql://localhost:5432/production_database
+    username: app_user
+    password: secretPassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+        type:
+          spi: trace
+
+# Kafka Configuration
+kafka:
+  bootstrap-servers: localhost:9092
+  consumer:
+    group-id: user-consumer-group
+  topic:
+    mongodb-users: mongo.productionData.users
+
+server:
+  port: 8081
