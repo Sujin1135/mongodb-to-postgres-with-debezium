@@ -1,0 +1,43 @@
+[versions]
+spring-boot = "4.0.0"
+flyway-postgres = "11.14.1"
+kotlin = "2.2.21"
+postgresql = "42.7.8"
+testcontainers = "2.0.2"
+junit = "6.0.1"
+dependency-management = "1.1.7"
+
+[libraries]
+spring-boot-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring-boot" }
+data-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-jdbc", version.ref = "spring-boot" }
+data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+data-mongodb = { group = "org.springframework.boot", name = "spring-boot-starter-data-mongodb", version.ref = "spring-boot" }
+mongodb = { group = "org.springframework.boot", name = "spring-boot-starter-mongodb", version.ref = "spring-boot" }
+flyway = { group = "org.springframework.boot", name = "spring-boot-starter-flyway", version.ref = "spring-boot" }
+flyway-postgres = { group = "org.flywaydb", name = "flyway-database-postgresql", version.ref = "flyway-postgres" }
+postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+data-jdbc-test = { group = "org.springframework.boot", name = "spring-boot-starter-data-jdbc-test", version.ref = "spring-boot" }
+data-jpa-test = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa-test", version.ref = "spring-boot" }
+data-mongodb-test = { group = "org.springframework.boot", name = "spring-boot-starter-data-mongodb-test", version.ref = "spring-boot" }
+flyway-test = { group = "org.springframework.boot", name = "spring-boot-starter-flyway-test", version.ref = "spring-boot" }
+mongodb-test = { group = "org.springframework.boot", name = "spring-boot-starter-mongodb-test", version.ref = "spring-boot" }
+spring-boot-testcontainers = { group = "org.springframework.boot", name = "spring-boot-testcontainers", version.ref = "spring-boot" }
+junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
+testcontainers-junit-jupiter = { group = "org.testcontainers", name = "testcontainers-junit-jupiter", version.ref = "testcontainers" }
+testcontainers-mongodb = { group = "org.testcontainers", name = "testcontainers-mongodb", version.ref = "testcontainers" }
+testcontainers-postgresql = { group = "org.testcontainers", name = "testcontainers-postgresql", version.ref = "testcontainers" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit" }
+
+[bundles]
+db = ["data-jdbc", "data-jpa", "data-mongodb", "mongodb", "postgresql"]
+db-migration = ["flyway", "flyway-postgres"]
+testcontainers = ["spring-boot-testcontainers", "testcontainers-junit-jupiter", "testcontainers-mongodb", "testcontainers-postgresql"]
+db-test = ["data-jdbc-test", "data-jpa-test", "data-mongodb-test", "mongodb-test"]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "dependency-management" }
