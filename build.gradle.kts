@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
@@ -16,23 +18,46 @@ java {
     }
 }
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    implementation(libs.spring.boot.web)
-    implementation(libs.bundles.db)
-    implementation(libs.bundles.db.migration)
-    implementation(libs.kotlin.reflect)
+subprojects {
+    apply(plugin = rootProject.libs.plugins.kotlin.jvm.get().pluginId)
+    apply(plugin = rootProject.libs.plugins.kotlin.spring.get().pluginId)
+    apply(plugin = rootProject.libs.plugins.kotlin.jpa.get().pluginId)
+    apply(plugin = rootProject.libs.plugins.spring.boot.get().pluginId)
+    apply(plugin = rootProject.libs.plugins.spring.dependency.management.get().pluginId)
 
-    testImplementation(libs.flyway.test)
-    testImplementation(libs.bundles.db.test)
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(24)
+        }
+    }
 
-    testImplementation(libs.junit5)
-    testImplementation(libs.bundles.testcontainers)
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_24)
+            freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+        }
+    }
 
-    testRuntimeOnly(libs.junit.platform.launcher)
+    dependencies {
+        implementation(rootProject.libs.spring.boot.web)
+        implementation(rootProject.libs.bundles.db)
+        implementation(rootProject.libs.bundles.db.migration)
+        implementation(rootProject.libs.kotlin.reflect)
+
+        testImplementation(rootProject.libs.flyway.test)
+        testImplementation(rootProject.libs.bundles.db.test)
+
+        testImplementation(rootProject.libs.junit5)
+        testImplementation(rootProject.libs.bundles.testcontainers)
+
+        testRuntimeOnly(rootProject.libs.junit.platform.launcher)
+    }
 }
 
 kotlin {
@@ -49,4 +74,12 @@ allOpen {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.getByName<BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
 }
