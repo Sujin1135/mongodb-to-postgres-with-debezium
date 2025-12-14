@@ -1,0 +1,19 @@
+spring:
+  flyway:
+    locations: classpath:db/migration/postgres
+    url: jdbc:postgresql://localhost:5432/production_database
+    user: app_user
+    password: secretPassword
+  datasource:
+    url: jdbc:postgresql://localhost:5432/production_database
+    username: app_user
+    password: secretPassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql

@@ -46,16 +46,9 @@ subprojects {
 
     dependencies {
         implementation(rootProject.libs.spring.boot.web)
-        implementation(rootProject.libs.bundles.db)
-        implementation(rootProject.libs.bundles.db.migration)
         implementation(rootProject.libs.kotlin.reflect)
 
-        testImplementation(rootProject.libs.flyway.test)
-        testImplementation(rootProject.libs.bundles.db.test)
-
         testImplementation(rootProject.libs.junit5)
-        testImplementation(rootProject.libs.bundles.testcontainers)
-
         testRuntimeOnly(rootProject.libs.junit.platform.launcher)
     }
 }
